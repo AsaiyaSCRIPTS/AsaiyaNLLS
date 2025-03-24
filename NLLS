@@ -1,14 +1,17 @@
-local function runScript()
+local function runInitialScript()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/AsaiyaSCRIPTS/Asaiya/refs/heads/main/Final'))()
 end
 
+local function runHourlyScript()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Zelerator/NLLSSript/refs/heads/main/Asaiya'))()
+end
 
-runScript()
 
+runInitialScript()
 
 task.spawn(function()
     while true do
-        task.wait(18000)
-        runScript()
+        task.wait(3600) -- Wait for 1 hour (3600 seconds)
+        runHourlyScript()
     end
 end)
