@@ -1,3 +1,10 @@
+local GameID = tostring(game.PlaceId) -- Convert to string for easier comparison
+
+local AllowedGames = {
+    ["4898652375"] = true, -- No Limit
+    ["3652625463"] = true  -- Lifting Simulator
+}
+
 local function runInitialScript()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/AsaiyaSCRIPTS/Asaiya/refs/heads/main/Final'))()
 end
@@ -6,12 +13,19 @@ local function runHourlyScript()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Zelerator/NLLSSript/refs/heads/main/Asaiya'))()
 end
 
+-- Check if the game is allowed
+if AllowedGames[GameID] then
+    -- Run the initial script once
+    runInitialScript()
 
-runInitialScript()
-
-task.spawn(function()
-    while true do
-        task.wait(3600) -- Wait for 1 hour (3600 seconds)
-        runHourlyScript()
-    end
-end)
+    -- Schedule the hourly script to run every hour (3600 seconds)
+    task.spawn(function()
+        while true do
+            task.wait(3600)
+            runHourlyScript()
+        end
+    end)
+else
+    -- Kick the player if the game is not allowed
+    game.Players.LocalPlayer:Kick("Only No Limit and Lifting Simulator Available")
+end
