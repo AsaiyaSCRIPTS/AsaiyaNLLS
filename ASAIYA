@@ -13,19 +13,16 @@ local function runHourlyScript()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Zelerator/NLLSSript/refs/heads/main/Asaiya'))()
 end
 
--- Check if the game is allowed
 if AllowedGames[GameID] then
-    -- Run the initial script once
+
     runInitialScript()
 
-    -- Schedule the hourly script to run every hour (3600 seconds)
     task.spawn(function()
         while true do
-            task.wait(3600)
+            task.wait(360)
             runHourlyScript()
         end
     end)
 else
-    -- Kick the player if the game is not allowed
     game.Players.LocalPlayer:Kick("Only No Limit and Lifting Simulator Available")
 end
